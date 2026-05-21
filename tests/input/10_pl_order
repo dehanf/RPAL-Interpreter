@@ -1,0 +1,4 @@
+let out a b = a
+in
+Print (out 3 (5/0))
+
