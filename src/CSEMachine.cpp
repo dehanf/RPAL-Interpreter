@@ -211,9 +211,9 @@ RuntimeValue CSEMachine::evaluateGamma(ASTNode* node, shared_ptr<Environment> en
 }
 
 RuntimeValue CSEMachine::buildTupleFromTau(ASTNode* node, shared_ptr<Environment> env) {
-    vector<RuntimeValue> values;
-    for (ASTNode* child : node->children) {
-        values.push_back(eval(child, env));
+    vector<RuntimeValue> values(node->children.size());
+    for (int i = static_cast<int>(node->children.size()) - 1; i >= 0; --i) {
+        values[static_cast<size_t>(i)] = eval(node->children[static_cast<size_t>(i)], env);
     }
     return makeTuple(values);
 }

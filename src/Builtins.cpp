@@ -25,7 +25,7 @@ RuntimeValue finishBuiltin(const string& name, const vector<RuntimeValue>& args)
     if (name == "Print") {
         // Print is the only built-in here with a side effect; normal evaluation
         // does not print returned dummy values.
-        cout << formatRuntimeValue(a) << endl;
+        cout << formatRuntimeValue(a);
         return makeDummy();
     }
     if (name == "Conc") {
