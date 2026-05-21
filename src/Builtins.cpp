@@ -7,6 +7,9 @@
 using namespace std;
 
 namespace {
+bool printedOutput = false;
+bool lastOutputWasNewline = true;
+
 int arity(const string& name) {
     if (name == "Conc") {
         return 2;
@@ -25,7 +28,12 @@ RuntimeValue finishBuiltin(const string& name, const vector<RuntimeValue>& args)
     if (name == "Print") {
         // Print is the only built-in here with a side effect; normal evaluation
         // does not print returned dummy values.
-        cout << formatRuntimeValue(a);
+        string output = formatRuntimeValue(a);
+        cout << output;
+        if (!output.empty()) {
+            printedOutput = true;
+            lastOutputWasNewline = output.back() == '\n';
+        }
         return makeDummy();
     }
     if (name == "Conc") {
@@ -74,6 +82,10 @@ void installBuiltins(Environment& env) {
     for (const string& name : names) {
         env.bind(name, makeBuiltin(name));
     }
+}
+
+bool needsFinalOutputNewline() {
+    return printedOutput && !lastOutputWasNewline;
 }
 
 RuntimeValue applyBuiltin(const string& name,

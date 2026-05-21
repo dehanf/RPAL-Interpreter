@@ -1,4 +1,5 @@
 #include "ASTNode.h"
+#include "Builtins.h"
 #include "CSEMachine.h"
 #include "RuntimeValue.h"
 #include "Standardizer.h"
@@ -83,6 +84,9 @@ int main(int argc, char* argv[]) {
             standardizedRoot = standardize(root);
             CSEMachine machine;
             machine.evaluate(standardizedRoot);
+            if (needsFinalOutputNewline()) {
+                cout << endl;
+            }
         }
 
         freeTree(standardizedRoot);

@@ -8,5 +8,6 @@ void installBuiltins(Environment& env);
 RuntimeValue applyBuiltin(const std::string& name,
                           const std::vector<RuntimeValue>& existingArgs,
                           const RuntimeValue& arg);
+bool needsFinalOutputNewline();
 
 #endif
