@@ -1,0 +1,6 @@
+// ERROR: Runtime Error — tuple index out of range
+// Cause: The tuple (10, 20, 30) has 3 elements; accessing index 5 is out of range
+// Expected: Error: tuple index out of range
+
+let t = (10, 20, 30)
+in Print (t 5)

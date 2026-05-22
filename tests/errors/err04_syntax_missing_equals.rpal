@@ -1,0 +1,6 @@
+// ERROR: Syntax Error
+// Cause: '=' is missing in the let binding (let x 5 instead of let x = 5)
+// Expected: Syntax Error: expected '=' but found '5' at line 2, column 11
+
+let x 5
+in Print x

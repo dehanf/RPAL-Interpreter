@@ -39,14 +39,14 @@ bool valueEquals(const RuntimeValue& left, const RuntimeValue& right) {
 
 int expectInt(const RuntimeValue& value, const string& op) {
     if (value.type != RuntimeType::INT) {
-        throw runtime_error(op + " expects integer operands");
+        throw runtime_error("Type Error: '" + op + "' requires integer operands, got a non-integer value");
     }
     return value.intValue;
 }
 
 bool expectBool(const RuntimeValue& value, const string& op) {
     if (value.type != RuntimeType::BOOL) {
-        throw runtime_error(op + " expects truth-value operands");
+        throw runtime_error("Type Error: '" + op + "' requires a truth-value (boolean) operand, got a non-boolean value");
     }
     return value.boolValue;
 }
@@ -121,7 +121,14 @@ RuntimeValue CSEMachine::evalOperator(const string& op, const RuntimeValue& left
     if (op == "+") return makeInt(expectInt(left, op) + expectInt(right, op));
     if (op == "-") return makeInt(expectInt(left, op) - expectInt(right, op));
     if (op == "*") return makeInt(expectInt(left, op) * expectInt(right, op));
-    if (op == "/") return makeInt(expectInt(left, op) / expectInt(right, op));
+    if (op == "/") {
+        int dividend = expectInt(left, op);
+        int divisor  = expectInt(right, op);
+        if (divisor == 0) {
+            throw runtime_error("Runtime Error: division by zero");
+        }
+        return makeInt(dividend / divisor);
+    }
     if (op == "**") return makeInt(static_cast<int>(pow(expectInt(left, op), expectInt(right, op))));
     if (op == "or") return makeBool(expectBool(left, op) || expectBool(right, op));
     if (op == "&") return makeBool(expectBool(left, op) && expectBool(right, op));
@@ -131,13 +138,13 @@ RuntimeValue CSEMachine::evalOperator(const string& op, const RuntimeValue& left
     if (op == "le") return makeBool(expectInt(left, op) <= expectInt(right, op));
     if (op == "eq") return makeBool(valueEquals(left, right));
     if (op == "ne") return makeBool(!valueEquals(left, right));
-    throw runtime_error("unsupported binary operator: " + op);
+    throw runtime_error("Runtime Error: unsupported binary operator '" + op + "'");
 }
 
 RuntimeValue CSEMachine::evalUnaryOperator(const string& op, const RuntimeValue& value) {
     if (op == "neg") return makeInt(-expectInt(value, op));
     if (op == "not") return makeBool(!expectBool(value, op));
-    throw runtime_error("unsupported unary operator: " + op);
+    throw runtime_error("Runtime Error: unsupported unary operator '" + op + "'");
 }
 
 void CSEMachine::bindPattern(shared_ptr<Environment> env, ASTNode* pattern, const RuntimeValue& value) {
@@ -207,7 +214,18 @@ RuntimeValue CSEMachine::evaluateGamma(ASTNode* node, shared_ptr<Environment> en
         }
         return values[index - 1];
     }
-    throw runtime_error("gamma cannot apply non-function value");
+    throw runtime_error("Runtime Error: cannot apply a non-function value (got type '" +
+        [&]() -> string {
+            switch (function.type) {
+                case RuntimeType::INT:    return "integer";
+                case RuntimeType::BOOL:   return "boolean";
+                case RuntimeType::STRING: return "string";
+                case RuntimeType::TUPLE:  return "tuple";
+                case RuntimeType::NIL:    return "nil";
+                case RuntimeType::DUMMY:  return "dummy";
+                default:                  return "unknown";
+            }
+        }() + "')");
 }
 
 RuntimeValue CSEMachine::buildTupleFromTau(ASTNode* node, shared_ptr<Environment> env) {

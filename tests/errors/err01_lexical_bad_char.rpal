@@ -1,0 +1,5 @@
+// ERROR: Lexical Error
+// Cause: '?' is not a valid character in RPAL (it is NOT an operator symbol in this lexer)
+// Expected: Lexical Error: invalid token '?' at line 2, column 11
+
+let x = 5? in Print x

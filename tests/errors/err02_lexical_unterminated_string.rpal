@@ -1,0 +1,6 @@
+// ERROR: Lexical Error
+// Cause: String literal is opened with ' but never closed (no matching closing quote)
+// Expected: Lexical Error: invalid token '...' at line 2, column 11
+
+let s = 'hello world
+in Print s

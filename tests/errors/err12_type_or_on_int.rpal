@@ -1,0 +1,7 @@
+// ERROR: Runtime Type Error — boolean 'or' on integers
+// Cause: 'or' requires truth-value operands but receives integers
+// Expected: Error: Type Error: 'or' requires a truth-value (boolean) operand, got a non-boolean value
+
+let a = 1
+in let b = 0
+in Print (a or b)

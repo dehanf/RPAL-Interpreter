@@ -1,0 +1,6 @@
+// ERROR: Runtime Type Error — conditional guard is not a boolean
+// Cause: The '->' condition must be a truth-value; here it is an integer
+// Expected: Error: conditional guard must be a truth value
+
+let x = 5
+in Print ((x + 1) -> 'yes' | 'no')

@@ -1,0 +1,6 @@
+// ERROR: Runtime Error — Division by Zero (computed divisor)
+// Cause: The divisor is computed from an expression that results in 0
+// Expected: Error: Runtime Error: division by zero
+
+let divisor = fn x . x - x    // always returns 0
+in Print (100 / (divisor 42))

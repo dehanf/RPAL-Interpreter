@@ -1,0 +1,7 @@
+// ERROR: Runtime Type Error — arithmetic on non-integer
+// Cause: Trying to add a string to an integer using '+' operator
+// Expected: Error: Type Error: '+' requires integer operands, got a non-integer value
+
+let x = 5
+in let s = 'hello'
+in Print (x + s)

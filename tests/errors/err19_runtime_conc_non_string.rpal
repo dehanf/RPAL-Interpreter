@@ -1,0 +1,6 @@
+// ERROR: Runtime Error — Conc (string concatenation) on non-string
+// Cause: Conc expects two string arguments; here the second is an integer
+// Expected: Error: Conc expects two strings
+
+let s = 'hello'
+in Print (Conc s 99)

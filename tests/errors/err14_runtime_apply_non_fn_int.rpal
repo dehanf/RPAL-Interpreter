@@ -1,0 +1,6 @@
+// ERROR: Runtime Error — applying a non-function (integer) as a function
+// Cause: 'x' is an integer; it cannot be called like a function
+// Expected: Error: Runtime Error: cannot apply a non-function value (got type 'integer')
+
+let x = 42
+in Print (x 10)

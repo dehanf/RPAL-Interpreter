@@ -1,0 +1,6 @@
+// ERROR: Runtime Error — applying a string as a function
+// Cause: 'greeting' is a string; it cannot be applied to an argument
+// Expected: Error: Runtime Error: cannot apply a non-function value (got type 'string')
+
+let greeting = 'hello'
+in Print (greeting 99)

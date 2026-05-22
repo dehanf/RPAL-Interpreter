@@ -1,8 +1,8 @@
 #include "parser.h"
 
-#include <cstdlib>
 #include <iostream>
 #include <sstream>
+#include <stdexcept>
 
 using namespace std;
 
@@ -30,18 +30,16 @@ bool Parser::check(const string& value) {
 }
 
 void Parser::syntaxError(const string& expected, const Token& found) {
-    cerr << "Syntax Error: expected " << expected << " but found '"
-         << found.value << "'";
+    ostringstream oss;
+    oss << "Syntax Error: expected " << expected << " but found '" << found.value << "'";
     if (found.line > 0) {
-        cerr << " at line " << found.line << ", column " << found.column;
+        oss << " at line " << found.line << ", column " << found.column;
     }
-    cerr << endl;
-    exit(1);
+    throw runtime_error(oss.str());
 }
 
 void Parser::internalParserError(const string& message) {
-    cerr << "Internal Parser Error: " << message << endl;
-    exit(1);
+    throw runtime_error("Internal Parser Error: " + message);
 }
 
 void Parser::match(const string& expected) {
