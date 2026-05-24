@@ -1,0 +1,6 @@
+// ERROR: Runtime Type Error — boolean operator on non-boolean
+// Cause: 'not' requires a truth-value but receives an integer
+// Expected: Error: Type Error: 'not' requires a truth-value (boolean) operand, got a non-boolean value
+
+let x = 42
+in Print (not x)

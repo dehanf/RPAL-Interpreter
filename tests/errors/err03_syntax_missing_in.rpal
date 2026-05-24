@@ -1,0 +1,6 @@
+// ERROR: Syntax Error
+// Cause: 'in' keyword is missing between 'let' definition and the body expression
+// Expected: Syntax Error: expected 'in' but found 'Print' at line 2, column 1
+
+let x = 10
+Print x

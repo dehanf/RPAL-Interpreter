@@ -1,0 +1,6 @@
+// ERROR: Syntax Error
+// Cause: Closing parenthesis ')' is missing
+// Expected: Syntax Error: expected ')' but found 'in' at line 3, column 1
+
+let x = (3 + 4
+in Print x

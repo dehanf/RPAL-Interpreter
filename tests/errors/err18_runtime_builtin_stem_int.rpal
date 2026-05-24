@@ -1,0 +1,6 @@
+// ERROR: Runtime Error — builtin type mismatch (Stem on non-string)
+// Cause: Stem expects a string argument but receives an integer
+// Expected: Error: Stem expects string
+
+let x = 42
+in Print (Stem x)

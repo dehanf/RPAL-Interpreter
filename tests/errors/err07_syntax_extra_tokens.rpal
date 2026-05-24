@@ -1,0 +1,7 @@
+// ERROR: Syntax Error
+// Cause: Trailing garbage tokens after a complete expression
+// The expression 'Print 5' is complete but 'extra garbage' follows unexpectedly
+// Expected: Syntax Error: expected end of program but found 'garbage' at line 2, column 9
+
+Print 5
+garbage stuff here

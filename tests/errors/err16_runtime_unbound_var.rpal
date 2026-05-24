@@ -1,0 +1,6 @@
+// ERROR: Runtime Error — unbound (undefined) variable
+// Cause: 'z' is used but never defined in any enclosing scope
+// Expected: Error: (lookup error from Environment — e.g. "unbound variable: z")
+
+let x = 10
+in Print (x + z)

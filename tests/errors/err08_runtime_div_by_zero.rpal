@@ -1,0 +1,7 @@
+// ERROR: Runtime Error — Division by Zero
+// Cause: The divisor evaluates to 0 at runtime
+// Expected: Error: Runtime Error: division by zero
+
+let x = 10
+in let y = 0
+in Print (x / y)
